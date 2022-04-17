@@ -35,7 +35,7 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
         onClose={onClose} 
         onSubmit={handleSubmit}>
         <input 
-          className="form__input" 
+          className="form__input form__input_popup" 
           type="text" 
           id="card-name" 
           placeholder="Название" 
@@ -47,7 +47,7 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
           required/>  
         <span className="form__input-error" id="card-name-error"></span>
         <input 
-          className="form__input form__input_second" 
+          className="form__input form__input_popup form__input_second" 
           type="url" id="card-link" 
           placeholder="Ссылка на картинку" 
           name="inputCardLink" 
@@ -61,3 +61,4 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
     }
     
     export default AddPlacePopup;    
+    

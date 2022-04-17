@@ -21,7 +21,7 @@ function EditAvatarPopup({isOpen, onClose, onUpdateAvatar}) {
       onClose={onClose} 
       onSubmit={handleSubmit}>
       <input 
-        className="form__input" 
+        className="form__input form__input_popup" 
         type="url" 
         id="profile-avatar-edit" 
         placeholder="Ссылка на аватар" 
