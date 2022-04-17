@@ -23,10 +23,12 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false)
   const [isCardDeletePopupOpen, setIsCardDeletePopupOpen] = React.useState(false)
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = React.useState(false);
-  
+
+  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+
   const [selectedCard, setSelectedCard] = React.useState({})
   const [cards, setCards] = React.useState([])
-  const [currentCard, setCurrentCard] = React.useState([])
+  const [currentCard, setCurrentCard] = React.useState({})
   const [currentUser, setCurrentUser] = React.useState({});
 
   const [loggedIn, setLoggedIn] = React.useState(false);
@@ -47,38 +49,20 @@ function App() {
     });
   }, []);
 
-  function handleEscClose (e) {
-    if (e.key === 'Escape') { 
-      closeAllPopups();
-    }
-  }
-
-  function handleClick(e) {
-    if (e.target.classList.contains('popup') || e.target.classList.contains('popup__close-btn')) {
-      closeAllPopups();
-    }
-  }
-
-  function subscriptionPopup() {
-    document.addEventListener('keydown', handleEscClose);
-    document.addEventListener('click', handleClick);
-  }
-
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsCardDeletePopupOpen(false);
     setIsInfoTooltipPopupOpen(false);
+    setIsImagePopupOpen(false);
     setSelectedCard({});
     setCurrentCard({});
-    document.removeEventListener('keydown', handleEscClose);
-    document.removeEventListener('click', handleClick);
   }
 
   function handleUpdateUser(user) {
-    Promise.all([api.setProfileInfo(user.name, user.about)])
-    .then(([userData]) => {
+    api.setProfileInfo(user.name, user.about)
+    .then((userData) => {
       setCurrentUser(userData)
       closeAllPopups();
     })
@@ -87,9 +71,10 @@ function App() {
     });
   }
 
+
   function handleUpdateAvatar(user, evt) {
-    Promise.all([api.setAvatar(user.avatar)])
-    .then(([userData]) => {
+    api.setAvatar(user.avatar)
+    .then((userData) => {
       setCurrentUser(userData)
       closeAllPopups();
     })
@@ -134,32 +119,27 @@ function App() {
   function handleCardDeleteClick(card) {
     setCurrentCard(card);
     setIsCardDeletePopupOpen(true);
-    subscriptionPopup();
   }
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
-    subscriptionPopup();
   };
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
-    subscriptionPopup();
   };
 
   function handleAddPlaceClick() { 
     setIsAddPlacePopupOpen(true);
-    subscriptionPopup();
   };
 
   function handleCardClick(card) {
     setSelectedCard(card);
-    subscriptionPopup()
+    setIsImagePopupOpen(true);
   }
   
   function handleInfoTooltipPopupOpen() {
     setIsInfoTooltipPopupOpen(true);
-    subscriptionPopup();
   }
 
   function handleSingout() {
@@ -174,14 +154,15 @@ function App() {
     .then((data) => {
       setIsSignup(true);
       setInputEmail(data.data.email);
-      handleInfoTooltipPopupOpen();
       history.push('/sign-in')
     })
     .catch((err) => {
       console.log(err);
       setIsSignup(false);
+    })
+    .finally(() => {
       handleInfoTooltipPopupOpen();
-    });   
+    })  
   }
 
   function handleAuthorization(data) {
@@ -225,7 +206,8 @@ function App() {
         <Header 
           loggedIn={loggedIn}
           currentEmail={currentEmail}
-          onSingout={handleSingout}/>
+          onSingout={handleSingout}
+        />
         <Switch>
           <Route path="/sign-up">
             <Register onRegistration={handleRegistration}/>
@@ -245,32 +227,40 @@ function App() {
             cards={cards}
             onCardLike={handleCardLike}
             onCardDelete={handleCardDeleteClick}
-            loggedIn={loggedIn}/>
+            loggedIn={loggedIn}
+          />
         </Switch>  
         <Footer />
         <ImagePopup 
+          isOpen={isImagePopupOpen} 
+          onClose={closeAllPopups}
           card={selectedCard} 
-          onClose={closeAllPopups} />
+        />
         <EditProfilePopup 
           isOpen={isEditProfilePopupOpen} 
           onClose={closeAllPopups} 
-          onUpdateUser={handleUpdateUser}/>  
+          onUpdateUser={handleUpdateUser}
+        />  
         <AddPlacePopup 
           isOpen={isAddPlacePopupOpen} 
           onClose={closeAllPopups} 
-          onAddPlace={handleAddPlaceSubmit}/>  
+          onAddPlace={handleAddPlaceSubmit}
+        />  
         <EditAvatarPopup 
           isOpen={isEditAvatarPopupOpen} 
           onClose={closeAllPopups} 
-          onUpdateAvatar={handleUpdateAvatar}/>  
+          onUpdateAvatar={handleUpdateAvatar}
+        />  
         <CardDeletePopup 
           isOpen={isCardDeletePopupOpen} 
           onClose={closeAllPopups}
-          onCardDelete={handleCardDelete}/>
+          onCardDelete={handleCardDelete}
+        />
         <InfoTooltipPopup
           isOpen={isInfoTooltipPopupOpen}
           onClose={closeAllPopups}
-          isSignup={isSignup}/>
+          isSignup={isSignup}
+        />
       </CurrentUserContext.Provider>
     </div>
   );

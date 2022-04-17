@@ -25,7 +25,8 @@ function Login({ onAuthorization, inputEmail} ) {
   return(
     <Form 
       title="Вход" buttonText="Войти" 
-      onSubmit={handleSubmit}>
+      onSubmit={handleSubmit}
+    >
       <input
         className="form__input form__input_simple"
         type="email"
@@ -35,9 +36,9 @@ function Login({ onAuthorization, inputEmail} ) {
         maxLength="30"
         value={data.email || ''}
         onChange={handleChange}
-        required/>
-        
-        <input
+        required
+      />
+      <input
         className="form__input form__input_simple"
         type="password"
         id="login-password"
@@ -45,7 +46,8 @@ function Login({ onAuthorization, inputEmail} ) {
         name="password"
         value={data.password || ''}
         onChange={handleChange}
-        required/>
+        required
+      />
     </Form>
   )
 }

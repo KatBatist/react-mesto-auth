@@ -8,14 +8,16 @@ function  InfoTooltipPopup ({isOpen, onClose, isSignup}) {
   
   return (
     <Popup 
-      id="8" name="message"  
+      name="message"  
       isOpen={isOpen} 
-      onClose={onClose}>
+      onClose={onClose}
+    >
       <img src={isSignup ? SignupYes : SignupNo} className="popup__image" alt="иконка" />
-        <h3 className="popup__message">
-          {isSignup 
-            ? 'Вы успешно зарегистрировались!'
-            : 'Что-то пошло не так! Пропробуйте ещё раз.'}</h3>
+      <h3 className="popup__message">
+        {isSignup 
+          ? 'Вы успешно зарегистрировались!'
+          : 'Что-то пошло не так! Пропробуйте ещё раз.'}
+      </h3>
     </Popup>    
   )
 }

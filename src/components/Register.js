@@ -32,7 +32,8 @@ function Register({onRegistration}) {
     <Form 
       title="Регистрация" buttonText="Зарегистрироваться" 
       onSubmit={handleSubmit}
-      addText={addText}>
+      addText={addText}
+    >
       <input
         className="form__input form__input_simple"
         type="email"
@@ -42,7 +43,8 @@ function Register({onRegistration}) {
         maxLength="30"
         value={data.email || ''}
         onChange={handleChange}
-        required/>
+        required
+      />
       <input
         className="form__input form__input_simple"
         type="password"
@@ -51,7 +53,8 @@ function Register({onRegistration}) {
         name="password"
         value={data.password || ''}
         onChange={handleChange}
-        required/>  
+        required
+      />  
     </Form>
   );
 }

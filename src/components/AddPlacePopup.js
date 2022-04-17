@@ -28,37 +28,38 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
   }
 
   return (
-    <>
-      <PopupWithForm 
-        id="2" name="add" title="Новое место" buttonText="Создать" 
-        isOpen={isOpen} 
-        onClose={onClose} 
-        onSubmit={handleSubmit}>
-        <input 
-          className="form__input form__input_popup" 
-          type="text" 
-          id="card-name" 
-          placeholder="Название" 
-          name="inputCardName" 
-          minLength="2" 
-          maxLength="30" 
-          value={name}
-          onChange={handleChangeName}
-          required/>  
-        <span className="form__input-error" id="card-name-error"></span>
-        <input 
-          className="form__input form__input_popup form__input_second" 
-          type="url" id="card-link" 
-          placeholder="Ссылка на картинку" 
-          name="inputCardLink" 
-          value={link}
-          onChange={handleChangeLink}
-          required/>
-        <span className="form__input-error" id="card-link-error"></span>
-      </PopupWithForm>  
-        </>  
-      );
-    }
+    <PopupWithForm 
+      id="2" name="add" title="Новое место" buttonText="Создать" 
+      isOpen={isOpen} 
+      onClose={onClose} 
+      onSubmit={handleSubmit}
+    >
+      <input 
+        className="form__input form__input_popup" 
+        type="text" 
+        id="card-name" 
+        placeholder="Название" 
+        name="inputCardName" 
+        minLength="2" 
+        maxLength="30" 
+        value={name}
+        onChange={handleChangeName}
+        required
+      />  
+      <span className="form__input-error" id="card-name-error"></span>
+      <input 
+        className="form__input form__input_popup form__input_second" 
+        type="url" id="card-link" 
+        placeholder="Ссылка на картинку" 
+        name="inputCardLink" 
+        value={link}
+        onChange={handleChangeLink}
+        required
+      />
+      <span className="form__input-error" id="card-link-error"></span>
+    </PopupWithForm>  
+  );
+}
     
-    export default AddPlacePopup;    
+export default AddPlacePopup;    
     

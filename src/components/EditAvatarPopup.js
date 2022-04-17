@@ -19,7 +19,8 @@ function EditAvatarPopup({isOpen, onClose, onUpdateAvatar}) {
       id="3" name="avatar-edit" title="Обновить аватар" buttonText="Сохранить" 
       isOpen={isOpen} 
       onClose={onClose} 
-      onSubmit={handleSubmit}>
+      onSubmit={handleSubmit}
+    >
       <input 
         className="form__input form__input_popup" 
         type="url" 
@@ -28,7 +29,8 @@ function EditAvatarPopup({isOpen, onClose, onUpdateAvatar}) {
         name="inputAvatar" 
         ref={refAvatar}
         defaultValue={currentUser.avatar} 
-        required/>  
+        required
+      />  
       <span className="form__input-error" id="profile-avatar-edit-error"></span>
     </PopupWithForm>   
   );
